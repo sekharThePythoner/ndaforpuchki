@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puchki's Important Vault 🌸✨</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Fredoka & Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cutesky: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#075985' },
+                        ndagreen: { 400: '#86efac', 500: '#22c55e', 700: '#15803d', 800: '#166534' }
+                    },
+                    fontFamily: {
+                        sans: ['"Quicksand"', 'sans-serif'],
+                        cute: ['"Fredoka"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+            color: #075985;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .cute-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+            border-radius: 1.5rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(6deg); }
+        }
+        .floating-emoji { animation: float 6s ease-in-out infinite; }
+
+        .type-pill {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .type-pill.active {
+            background-color: #0ea5e9;
+            color: #ffffff;
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f0f9ff; }
+        ::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 10px; }
+    </style>
+</head>
+<body class="p-4 md:p-6 relative">
+
+    <div class="absolute top-10 left-8 text-4xl opacity-40 floating-emoji pointer-events-none">☁️</div>
+    <div class="absolute top-48 right-10 text-3xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 2s;">🎥</div>
+    <div class="absolute bottom-20 left-16 text-4xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 4s;">✨</div>
+    <div class="absolute bottom-10 right-24 text-3xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 1.5s;">📚</div>
+
+    <header class="max-w-4xl mx-auto flex justify-between items-center mb-8 relative z-10">
+        <a href="index.html" class="cute-glass px-4 py-2 rounded-full text-sm font-bold text-cutesky-500 hover:bg-white transition shadow-sm flex items-center gap-2">
+            <span>←</span> Back to Dashboard
+        </a>
+        <div class="cute-glass px-4 py-1.5 rounded-full text-xs font-bold text-cutesky-500 shadow-sm flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cutesky-400 animate-pulse"></span>
+            developed by your chipkali 💗
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto relative z-10 pb-12">
+        <div class="text-center mb-8">
+            <div class="w-20 h-20 mx-auto bg-white rounded-full flex items-center justify-center text-4xl shadow-md border-4 border-cutesky-100 mb-3 floating-emoji">
+                💎
+            </div>
+            <h1 class="text-3xl md:text-4xl font-cute font-bold text-cutesky-800 mb-2">Puchki's Custom Resource Vault</h1>
+            <p class="text-cutesky-500 font-bold text-sm md:text-base">Save your books, YouTube videos, channels, and special links! ☁️✨</p>
+        </div>
+
+        <div class="cute-glass p-6 md:p-8 mb-8">
+            <h2 class="text-xl font-cute font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span>➕</span> Add a New Resource
+            </h2>
+            <form id="vaultForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Resource Title</label>
+                    <input type="text" id="resTitle" placeholder="e.g., NDA Maths Full Revision Marathon / Physics Book PDF" required 
+                           class="w-full px-4 py-3 rounded-xl bg-white/80 border border-gray-200 focus:outline-none focus:border-cutesky-400 font-medium text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Resource Link / URL</label>
+                    <input type="text" id="resUrl" placeholder="https://youtube.com/watch?v=... or https://..." required 
+                           class="w-full px-4 py-3 rounded-xl bg-white/80 border border-gray-200 focus:outline-none focus:border-cutesky-400 font-medium text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-2">Resource Type</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="typeSelector">
+                        <button type="button" data-type="video" class="type-pill active py-2 px-3 text-xs font-bold rounded-xl border border-gray-200 bg-white text-gray-700 flex items-center justify-center gap-1.5">
+                            🎬 Video
+                        </button>
+                        <button type="button" data-type="book" class="type-pill py-2 px-3 text-xs font-bold rounded-xl border border-gray-200 bg-white text-gray-700 flex items-center justify-center gap-1.5">
+                            📚 Book
+                        </button>
+                        <button type="button" data-type="channel" class="type-pill py-2 px-3 text-xs font-bold rounded-xl border border-gray-200 bg-white text-gray-700 flex items-center justify-center gap-1.5">
+                            📺 Channel
+                        </button>
+                        <button type="button" data-type="notes" class="type-pill py-2 px-3 text-xs font-bold rounded-xl border border-gray-200 bg-white text-gray-700 flex items-center justify-center gap-1.5">
+                            📝 Notes
+                        </button>
+                        <button type="button" data-type="link" class="type-pill py-2 px-3 text-xs font-bold rounded-xl border border-gray-200 bg-white text-gray-700 flex items-center justify-center gap-1.5">
+                            🔗 Any Link
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-cutesky-500 hover:bg-cutesky-400 text-white font-cute font-bold text-lg rounded-xl shadow-md transition transform active:scale-[0.99] flex items-center justify-center gap-2">
+                    <span>Save to Vault</span> 💙
+                </button>
+            </form>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div class="flex flex-wrap gap-1.5" id="filterBar">
+                <button onclick="setFilter('all')" class="filter-btn active-filter px-3 py-1.5 rounded-full text-xs font-bold bg-white text-cutesky-800 shadow-sm border border-cutesky-200">All</button>
+                <button onclick="setFilter('video')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white/60 text-gray-600 hover:bg-white transition">🎬 Videos</button>
+                <button onclick="setFilter('book')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white/60 text-gray-600 hover:bg-white transition">📚 Books</button>
+                <button onclick="setFilter('channel')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white/60 text-gray-600 hover:bg-white transition">📺 Channels</button>
+                <button onclick="setFilter('notes')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white/60 text-gray-600 hover:bg-white transition">📝 Notes</button>
+                <button onclick="setFilter('link')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white/60 text-gray-600 hover:bg-white transition">🔗 Links</button>
+            </div>
+
+            <div class="w-full sm:w-48">
+                <input type="text" id="searchInput" placeholder="Search saved items..." oninput="renderVault()" 
+                       class="w-full px-3 py-1.5 text-xs rounded-full bg-white/80 border border-cutesky-200 focus:outline-none focus:border-cutesky-400">
+            </div>
+        </div>
+
+        <div id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Saved items will be injected dynamically here -->
+        </div>
+
+        <div id="emptyVault" class="hidden cute-glass p-10 text-center rounded-2xl">
+            <span class="text-4xl mb-3 block">📭✨</span>
+            <h3 class="font-cute text-xl font-bold text-cutesky-800 mb-1">Your Vault is Empty!</h3>
+            <p class="text-xs text-gray-500">Paste your favorite study links, book PDFs, or video playlists above to save them here cutie! ☁️💙</p>
+        </div>
+    </main>
+
+    <div id="toast" class="fixed bottom-6 right-6 cute-glass px-5 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2">
+        <span id="toastIcon">✨</span>
+        <span id="toastMsg" class="text-xs font-bold text-cutesky-800">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        let selectedType = 'video';
+        let currentFilter = 'all';
+
+        // Type selection buttons logic
+        document.querySelectorAll('#typeSelector button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#typeSelector button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedType = btn.dataset.type;
+            });
+        });
+
+        // Icon mapper
+        const typeConfig = {
+            video: { icon: '🎬', label: 'Video', bg: 'bg-rose-50 text-rose-600 border-rose-200' },
+            book: { icon: '📚', label: 'Book', bg: 'bg-blue-50 text-blue-600 border-blue-200' },
+            channel: { icon: '📺', label: 'Channel', bg: 'bg-purple-50 text-purple-600 border-purple-200' },
+            notes: { icon: '📝', label: 'Notes', bg: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+            link: { icon: '🔗', label: 'Link', bg: 'bg-amber-50 text-amber-600 border-amber-200' }
+        };
+
+        const vaultForm = document.getElementById('vaultForm');
+        const vaultGrid = document.getElementById('vaultGrid');
+        const emptyVault = document.getElementById('emptyVault');
+
+        function getVaultData() {
+            return JSON.parse(localStorage.getItem('puchki_custom_vault')) || [];
+        }
+
+        function saveVaultData(data) {
+            localStorage.setItem('puchki_custom_vault', JSON.stringify(data));
+        }
+
+        vaultForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('resTitle').value.trim();
+            const url = document.getElementById('resUrl').value.trim();
+
+            if (!title || !url) return;
+
+            // Check if the URL contains at least one dot (.)
+            if (!url.includes('.')) {
+                showToast('Please enter a proper URL containing a dot (.) 🥺', '❌');
+                return;
+            }
+
+            const newItem = {
+                id: Date.now(),
+                title: title,
+                url: url,
+                type: selectedType,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+            };
+
+            const data = getVaultData();
+            data.unshift(newItem);
+            saveVaultData(data);
+
+            vaultForm.reset();
+            // Reset selected type back to default
+            document.querySelectorAll('#typeSelector button').forEach(b => b.classList.remove('active'));
+            document.querySelector('#typeSelector button[data-type="video"]').classList.add('active');
+            selectedType = 'video';
+
+            showToast('Saved to your vault! ☁️', '💙');
+            renderVault();
+        });
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-cutesky-800', 'shadow-sm', 'border', 'border-cutesky-200');
+                btn.classList.add('bg-white/60', 'text-gray-600');
+            });
+            event.target.classList.remove('bg-white/60', 'text-gray-600');
+            event.target.classList.add('bg-white', 'text-cutesky-800', 'shadow-sm', 'border', 'border-cutesky-200');
+            renderVault();
+        }
+
+        function renderVault() {
+            const data = getVaultData();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            vaultGrid.innerHTML = '';
+
+            const filteredData = data.filter(item => {
+                const matchesFilter = currentFilter === 'all' || item.type === currentFilter;
+                const matchesSearch = item.title.toLowerCase().includes(searchTerm) || item.url.toLowerCase().includes(searchTerm);
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filteredData.length === 0) {
+                emptyVault.classList.remove('hidden');
+            } else {
+                emptyVault.classList.add('hidden');
+                
+                filteredData.forEach(item => {
+                    const cfg = typeConfig[item.type] || typeConfig.link;
+                    const card = document.createElement('div');
+                    card.className = 'cute-glass p-5 flex flex-col justify-between hover:border-cutesky-300 transition relative group';
+                    
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${cfg.bg} flex items-center gap-1">
+                                    <span>${cfg.icon}</span> ${cfg.label}
+                                </span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-gray-400 font-medium">${item.date}</span>
+                                    <button onclick="deleteItem(${item.id})" class="text-gray-400 hover:text-rose-500 transition p-1 text-xs" title="Delete">🗑️</button>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-sm mb-1 line-clamp-2">${escapeHtml(item.title)}</h3>
+                            <p class="text-xs text-gray-400 truncate mb-4 font-mono">${escapeHtml(item.url)}</p>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-3 border-t border-gray-100/60">
+                            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" 
+                               class="flex-1 py-2 bg-cutesky-50 hover:bg-cutesky-100 text-cutesky-600 font-bold text-xs rounded-lg text-center transition border border-cutesky-200 flex items-center justify-center gap-1">
+                                <span>Open</span> ↗
+                            </a>
+                            <button onclick="copyToClipboard('${escapeHtml(item.url)}')" 
+                                    class="py-2 px-3 bg-white hover:bg-gray-50 text-gray-600 font-bold text-xs rounded-lg border border-gray-200 transition" title="Copy Link">
+                                📋
+                            </button>
+                        </div>
+                    `;
+                    vaultGrid.appendChild(card);
+                });
+            }
+        }
+
+        function deleteItem(id) {
+            let data = getVaultData();
+            data = data.filter(item => item.id !== id);
+            saveVaultData(data);
+            showToast('Item deleted', '🗑️');
+            renderVault();
+        }
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('Link copied to clipboard!', '📋');
+        }
+
+        function showToast(msg, icon = '✨') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            document.getElementById('toastIcon').textContent = icon;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // Initialize display
+        renderVault();
+    </script>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggleBtn" onclick="toggleMusic()" class="fixed bottom-6 left-6 cute-glass w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-lg z-[100] hover:scale-110 transition-transform">
+        🔇
+    </button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('musicToggleBtn');
+            
+            // Grab the exact time left off from the previous page
+            const savedTime = localStorage.getItem('puchki_music_time') || 0;
+            const isPlaying = localStorage.getItem('puchki_music_playing') === 'true';
+
+            audio.currentTime = parseFloat(savedTime);
+
+            if (isPlaying) {
+                audio.play().then(() => {
+                    musicBtn.innerHTML = '🔊';
+                }).catch(e => {
+                    console.log("Autoplay blocked", e);
+                    musicBtn.innerHTML = '🔇';
+                    localStorage.setItem('puchki_music_playing', 'false');
+                });
+            }
+
+            audio.addEventListener('timeupdate', () => {
+                localStorage.setItem('puchki_music_time', audio.currentTime);
+            });
+            
+            window.toggleMusic = function() {
+                if (audio.paused) {
+                    audio.play();
+                    localStorage.setItem('puchki_music_playing', 'true');
+                    musicBtn.innerHTML = '🔊';
+                } else {
+                    audio.pause();
+                    localStorage.setItem('puchki_music_playing', 'false');
+                    musicBtn.innerHTML = '🔇';
+                }
+            };
+        });
+    </script>
+</body>
+</html>

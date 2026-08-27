@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puchkiiiiiiiii's NDA Dream 🌸</title>
+    
+    <!-- Cute & Friendly Typography: Quicksand for reading, Fredoka for bubbly headers -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cutesky: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#075985' },
+                        ndagreen: { 400: '#86efac', 500: '#22c55e', 700: '#15803d', 800: '#166534' }
+                    },
+                    fontFamily: {
+                        sans: ['"Quicksand"', 'sans-serif'],
+                        cute: ['"Fredoka"', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+            color: #075985;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Floating Cloud & Sparkle Background Animation */
+        .flower-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .flower {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: float-up 15s linear infinite;
+        }
+        .f1 { left: 10%; animation-duration: 12s; font-size: 3rem; animation-delay: 0s; }
+        .f2 { left: 30%; animation-duration: 18s; font-size: 2rem; animation-delay: 2s; }
+        .f3 { left: 50%; animation-duration: 14s; font-size: 2.5rem; animation-delay: 4s; }
+        .f4 { left: 70%; animation-duration: 15s; font-size: 1.5rem; animation-delay: 1s; }
+        .f5 { left: 90%; animation-duration: 16s; font-size: 3.5rem; animation-delay: 3s; }
+
+        @keyframes float-up {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* Cute Glassmorphism */
+        .cute-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+            border-radius: 2rem;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 35px rgba(56, 189, 248, 0.25);
+            background: rgba(255, 255, 255, 0.85);
+            border-color: #7dd3fc;
+        }
+
+        .btn-sky {
+            background: linear-gradient(45deg, #38bdf8, #0ea5e9);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-sky:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f9ff; }
+        ::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+    </style>
+</head>
+<body>
+
+    <div class="flower-bg">
+        <div class="flower f1">☁️</div>
+        <div class="flower f2">✨</div>
+        <div class="flower f3">🛩️</div>
+        <div class="flower f4">⭐</div>
+        <div class="flower f5">☁️</div>
+    </div>
+
+    <header class="w-full px-6 py-4 flex justify-between items-center cute-glass !border-b-0 !rounded-none !border-t-0 sticky top-0 z-40">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-xl border-2 border-cutesky-200">
+                🪖🩵
+            </div>
+            <h1 class="text-2xl font-cute font-bold text-cutesky-500 tracking-wide">
+                Mission NDA
+            </h1>
+        </div>
+        <div class="text-xs sm:text-sm font-bold text-cutesky-500 bg-white/80 px-4 py-2 rounded-full border-2 border-cutesky-200 shadow-sm flex items-center gap-2">
+            <span class="animate-pulse">✨</span>
+            developed by your chipkali bhai 
+        </div>
+    </header>
+
+    <div id="welcomeModal" class="fixed inset-0 flex items-center justify-center z-[100] bg-cutesky-100/50 backdrop-blur-md transition-all duration-700 opacity-0 pointer-events-none">
+        <div class="cute-glass p-8 md:p-12 max-w-md w-full mx-4 text-center transform scale-95 transition-transform duration-700" id="welcomeCard">
+            <div class="relative w-24 h-24 mx-auto mb-6">
+                <div class="absolute inset-0 bg-cutesky-200 rounded-full animate-ping opacity-50"></div>
+                <div class="relative w-full h-full bg-white rounded-full flex items-center justify-center text-5xl shadow-lg border-4 border-cutesky-100 z-10">
+                    👸🏻
+                </div>
+            </div>
+            <h2 class="text-3xl font-cute font-bold text-cutesky-800 mb-2">Hiiii Puchkiiiiiiiii! ☁️✨</h2>
+            <p class="text-gray-600 text-base leading-relaxed mb-8 font-medium">
+                Welcome to your adorable NDA prep zone! You are beautiful, brilliant, and you are totally going to rock that uniform. Let's make that dream come true! 🛩️🩵
+            </p>
+            <button onclick="startExperience()" class="btn-sky w-full text-white font-cute text-lg py-4 px-8 rounded-full tracking-wide">
+                Start Studying, Cutie! 📚✨
+            </button>
+        </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto w-full px-6 mt-12 lg:mt-20 flex-1 flex flex-col items-center z-10 relative pb-20">
+        
+        <!-- Hero Section -->
+        <section class="text-center mb-16 max-w-2xl relative">
+            <div class="absolute -top-10 -left-10 text-4xl animate-bounce-slow">☁️</div>
+            <div class="absolute -top-5 -right-10 text-4xl animate-bounce-slow" style="animation-delay: 1.5s;">✨</div>
+            
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full cute-glass mb-6">
+                <span class="text-cutesky-500 font-bold text-sm tracking-wide">🌟 Future Officer Status: ACTIVATED</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-cute font-bold text-gray-800 mb-6 leading-tight">
+                Chasing the <br/>
+                <span class="text-cutesky-500">Stars & Stripes</span> with Style! ☁️✨
+            </h2>
+            <p class="text-gray-600 font-medium text-lg">
+                Pick your module below, Puchkiiiiiiiii. Remember, every equation solved and every fact learned is one step closer to the academy. You got this! 💪🩵
+            </p>
+        </section>
+
+        <!-- Module Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+            
+            <!-- Mathematics Card -->
+            <a href="maths.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    📐
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">Maths <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-cutesky-500 uppercase tracking-wider mb-4 bg-cutesky-50 inline-block px-3 py-1 rounded-full w-max">Paper I • 300 Marks</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    Algebra, Calculus, and all those tricky numbers! Show them how smart you are, cutie. 🧮
+                </p>
+            </a>
+
+            <!-- GAT Card -->
+            <a href="GAT.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    🌍
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">G.A.T. <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-ndagreen-700 uppercase tracking-wider mb-4 bg-ndagreen-400/20 inline-block px-3 py-1 rounded-full w-max">Paper II • 600 Marks</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    English, history, science, and knowing everything about the world! Slay the general knowledge. 📖
+                </p>
+            </a>
+
+            <!-- SSB Card -->
+            <a href="SSB.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    ⭐
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">SSB <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-4 bg-purple-100 inline-block px-3 py-1 rounded-full w-max">5-Day Interview</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    Time to shine! Confidence, grace, and Officer Like Qualities. Just be your amazing self! 👑
+                </p>
+            </a>
+
+            <!-- Books Card -->
+            <a href="books.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    📚
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">Books <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-4 bg-blue-100 inline-block px-3 py-1 rounded-full w-max">Study Material</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    All your crucial books, notes, and PDFs in one magical library. Read up, cutie! 📖
+                </p>
+            </a>
+
+            <!-- Important Videos Card -->
+            <a href="imp.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    🎬
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">Imp. Videos <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-sky-600 uppercase tracking-wider mb-4 bg-sky-100 inline-block px-3 py-1 rounded-full w-max">Watch & Learn</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    Saved lectures, brilliant tips, and that extra motivation when you need a boost! 📺✨
+                </p>
+            </a>
+
+            <!-- Exercise Card -->
+            <a href="exercise.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    🏃🏻‍♀️
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">Exercise <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-4 bg-teal-100 inline-block px-3 py-1 rounded-full w-max">Fitness First</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    Train hard! Running, stamina, and fitness for the medicals. Strong and beautiful! 💪🩵
+                </p>
+            </a>
+
+            <!-- Tests Card -->
+            <a href="tests.html" class="cute-glass p-8 flex flex-col group card-hover cursor-pointer relative">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl mb-6 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">
+                    🎯
+                </div>
+                <h3 class="text-2xl font-cute font-bold text-gray-800 mb-2">Mock Tests <span class="text-cutesky-400">☁️</span></h3>
+                <div class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-4 bg-indigo-100 inline-block px-3 py-1 rounded-full w-max">Practice Mode</div>
+                <p class="text-base text-gray-600 font-medium mt-auto">
+                    Time yourself and smash those mock papers! Practice makes perfect, Puchki! 📝✨
+                </p>
+            </a>
+
+        </div>
+    </main>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="musicToggleBtn" onclick="toggleMusic()" class="fixed bottom-6 left-6 cute-glass w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-lg z-[100] hover:scale-110 transition-transform">
+        🔇
+    </button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById('welcomeModal');
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('musicToggleBtn');
+            
+            // Sync music state across pages
+            const savedTime = localStorage.getItem('puchki_music_time') || 0;
+            const isPlaying = localStorage.getItem('puchki_music_playing') === 'true';
+
+            audio.currentTime = parseFloat(savedTime);
+
+            if (isPlaying) {
+                // If returning to index and music is already running, skip the welcome screen
+                modal.style.display = 'none';
+                audio.play().then(() => {
+                    musicBtn.innerHTML = '🔊';
+                }).catch(e => {
+                    console.log("Autoplay blocked. Waiting for interaction.", e);
+                    musicBtn.innerHTML = '🔇';
+                    localStorage.setItem('puchki_music_playing', 'false');
+                });
+            } else {
+                // Show modal normally if starting fresh
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    modal.classList.add('opacity-100', 'pointer-events-auto');
+                }, 300);
+            }
+
+            // Continuously save current time
+            audio.addEventListener('timeupdate', () => {
+                localStorage.setItem('puchki_music_time', audio.currentTime);
+            });
+            
+            window.toggleMusic = function() {
+                if (audio.paused) {
+                    audio.play();
+                    localStorage.setItem('puchki_music_playing', 'true');
+                    musicBtn.innerHTML = '🔊';
+                } else {
+                    audio.pause();
+                    localStorage.setItem('puchki_music_playing', 'false');
+                    musicBtn.innerHTML = '🔇';
+                }
+            };
+        });
+
+        function startExperience() {
+            const modal = document.getElementById('welcomeModal');
+            const card = document.getElementById('welcomeCard');
+            
+            if (document.getElementById('bgMusic').paused) {
+                toggleMusic();
+            }
+
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            card.style.transform = 'scale(0.8) translateY(-20px)';
+            
+            setTimeout(() => { 
+                modal.style.display = 'none'; 
+            }, 700);
+        }
+    </script>
+</body>
+</html>

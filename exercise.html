@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDA Elite Fitness Tracker 🪖⚡</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        military: {
+                            950: '#090d0a',
+                            900: '#111812',
+                            800: '#1a261c',
+                            700: '#27382a',
+                            600: '#384d3b',
+                            500: '#4e6b52',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #111812; }
+        ::-webkit-scrollbar-thumb { background: #27382a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4e6b52; }
+
+        .glass-panel {
+            background: rgba(17, 24, 18, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(78, 107, 82, 0.25);
+        }
+        
+        .glass-card {
+            background: rgba(26, 38, 28, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(78, 107, 82, 0.2);
+        }
+
+        .military-glow {
+            box-shadow: 0 0 25px rgba(78, 107, 82, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-military-950 text-gray-100 min-h-screen font-sans selection:bg-emerald-500 selection:text-black">
+
+    <!-- Background Music -->
+    <audio id="bgMusic" src="hard.mp3" loop preload="auto" autoplay></audio>
+
+    <header class="glass-panel sticky top-0 z-50 border-b border-military-800/80 px-4 lg:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="w-10 h-10 rounded-xl bg-military-800 flex items-center justify-center text-emerald-400 hover:bg-military-700 transition border border-military-700">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider uppercase flex items-center gap-2 text-emerald-400">
+                        <i class="fa-solid fa-shield-halved"></i> NDA Elite Ops Fitness
+                    </h1>
+                    <p class="text-xs text-gray-400">Personalized Combat Stamina & Endurance Protocol</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <div class="glass-card px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-military-700">
+                    <i class="fa-solid fa-calendar-day text-emerald-400"></i>
+                    <span id="headerDateDisplay">Loading Date...</span>
+                </div>
+                <button onclick="toggleMusic()" id="musicToggleBtn" class="glass-card px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 hover:bg-military-700 transition border border-military-700 text-gray-300">
+                    <i class="fa-solid fa-volume-xmark text-emerald-400" id="musicToggleIcon"></i>
+                    <span id="musicToggleLabel">Music: Off</span>
+                </button>
+                <button onclick="openSettingsModal()" class="glass-card px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 hover:bg-military-700 transition border border-military-700 text-gray-300">
+                    <i class="fa-solid fa-gear text-emerald-400"></i> Data Settings
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
+
+        <!-- Motivational & Stats Overview Banner -->
+        <section class="glass-panel rounded-3xl p-6 lg:p-8 military-glow relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 text-9xl text-military-800/30 font-black pointer-events-none select-none">
+                <i class="fa-solid fa-person-running"></i>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10 items-center">
+                <div class="lg:col-span-2 space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Officer Candidate Protocol Active
+                    </div>
+                    <h2 id="motivationalMessage" class="text-2xl lg:text-3xl font-bold tracking-tight text-white">
+                        "Discipline is the bridge between goals and military glory."
+                    </h2>
+                    <p class="text-sm text-gray-400 font-medium max-w-xl">
+                        Log your daily combat conditioning, smash your targets, and build unbreakable physical resilience for the NDA Service Selection Board and medical standards.
+                    </p>
+                </div>
+
+                <!-- Daily Scorecard Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3">
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 text-center">
+                        <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Streak</div>
+                        <div class="text-2xl lg:text-3xl font-black text-emerald-400" id="statStreak">0 <span class="text-xs font-normal text-gray-400">Days</span></div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 text-center">
+                        <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Today's Progress</div>
+                        <div class="text-2xl lg:text-3xl font-black text-emerald-400" id="statCompletion">0%</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 text-center">
+                        <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Completed Today</div>
+                        <div class="text-2xl lg:text-3xl font-black text-emerald-400" id="statCompletedCount">0/0</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 text-center">
+                        <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Total Workouts</div>
+                        <div class="text-2xl lg:text-3xl font-black text-emerald-400" id="statTotalWorkouts">0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left 2 Cols: Exercise Cards Grid -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-dumbbell text-emerald-400"></i> Combat Exercise Protocol
+                        </h3>
+                        <p class="text-xs text-gray-400">Record your actual performance and mark completion status.</p>
+                    </div>
+                    <button onclick="openCustomExerciseModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-xs rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Add Custom Exercise
+                    </button>
+                </div>
+
+                <!-- Exercise Cards Container -->
+                <div id="exerciseCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Dynamically rendered -->
+                </div>
+            </div>
+
+            <!-- Right Col: Today's Checklist & Quick Summary -->
+            <div class="space-y-6">
+                <div class="glass-panel rounded-3xl p-6 sticky top-24 space-y-6 border border-military-700/80">
+                    <div class="flex justify-between items-center border-b border-military-800 pb-4">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-400"></i> Today's Checklist
+                        </h3>
+                        <span id="checklistBadge" class="text-xs px-2.5 py-1 rounded-full bg-military-800 text-emerald-400 font-bold">0/0 Done</span>
+                    </div>
+
+                    <!-- Checklist Items -->
+                    <div id="dailyChecklistContainer" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+                        <!-- Dynamically rendered checklist -->
+                    </div>
+
+                    <div class="pt-2 border-t border-military-800 text-center">
+                        <p class="text-[11px] text-gray-400">Marking items updates streak and analytics in real-time.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="glass-panel rounded-3xl p-6 lg:p-8 space-y-6 border border-military-700/80">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-emerald-400"></i> Aims & Personal Targets
+                    </h3>
+                    <p class="text-xs text-gray-400">Personal training benchmarks (Note: These are personal training targets, not official NDA qualifying standards).</p>
+                </div>
+            </div>
+
+            <div id="goalsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Dynamically rendered targets -->
+            </div>
+        </section>
+
+        <section class="glass-panel rounded-3xl p-6 lg:p-8 space-y-6 border border-military-700/80">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-emerald-400"></i> Combat Analytics & Performance
+                    </h3>
+                    <p class="text-xs text-gray-400">Historical performance, completion rates, and streak consistency.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="switchAnalyticsTab('7days')" id="btnTab7" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-black transition">7 Days</button>
+                    <button onclick="switchAnalyticsTab('30days')" id="btnTab30" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-military-800 text-gray-300 hover:bg-military-700 transition">30 Days</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Chart Canvas -->
+                <div class="lg:col-span-2 glass-card p-5 rounded-2xl border border-military-700/60 relative h-72">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+
+                <!-- Analytics Summary Cards -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 flex flex-col justify-between">
+                        <span class="text-xs text-gray-400 uppercase font-semibold">Weekly Completion</span>
+                        <span class="text-2xl font-black text-emerald-400" id="analyticsWeeklyRate">0%</span>
+                        <span class="text-[10px] text-gray-500">Average last 7 days</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 flex flex-col justify-between">
+                        <span class="text-xs text-gray-400 uppercase font-semibold">Longest Streak</span>
+                        <span class="text-2xl font-black text-emerald-400" id="analyticsLongestStreak">0 Days</span>
+                        <span class="text-[10px] text-gray-500">Personal record</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 flex flex-col justify-between">
+                        <span class="text-xs text-gray-400 uppercase font-semibold">Total Logged</span>
+                        <span class="text-2xl font-black text-emerald-400" id="analyticsTotalExercises">0</span>
+                        <span class="text-[10px] text-gray-500">Completed exercises</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-military-700/60 flex flex-col justify-between">
+                        <span class="text-xs text-gray-400 uppercase font-semibold">Consistency Score</span>
+                        <span class="text-2xl font-black text-emerald-400" id="analyticsConsistency">0%</span>
+                        <span class="text-[10px] text-gray-500">Overall adherence</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-panel rounded-3xl p-6 lg:p-8 space-y-6 border border-military-700/80">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-emerald-400"></i> Workout History Archive
+                    </h3>
+                    <p class="text-xs text-gray-400">Review past daily logs and performance records.</p>
+                </div>
+            </div>
+
+            <div id="historyContainer" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+                <!-- Dynamically rendered history -->
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Custom Exercise Modal -->
+    <div id="customExerciseModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel rounded-3xl p-6 lg:p-8 max-w-md w-full space-y-6 border border-military-700 transform scale-95 transition-transform duration-300" id="customModalBox">
+            <div class="flex justify-between items-center border-b border-military-800 pb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-square-plus text-emerald-400"></i> Add Custom Exercise
+                </h3>
+                <button onclick="closeCustomExerciseModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form id="customExerciseForm" onsubmit="handleSaveCustomExercise(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Exercise Name</label>
+                    <input type="text" id="ceName" required placeholder="e.g. Burpees / Weighted Lunges" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Target Value</label>
+                        <input type="text" id="ceTarget" required placeholder="e.g. 30 or 2 min" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Unit</label>
+                        <input type="text" id="ceUnit" required placeholder="e.g. reps, km, sec" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Short Description / Note</label>
+                    <input type="text" id="ceNote" placeholder="e.g. Focus on explosive power" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeCustomExerciseModal()" class="flex-1 py-2.5 bg-military-800 hover:bg-military-700 text-gray-300 font-bold text-sm rounded-xl transition">Cancel</button>
+                    <button type="submit" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-sm rounded-xl transition">Save Exercise</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Target / Actual Modal -->
+    <div id="editExerciseModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel rounded-3xl p-6 lg:p-8 max-w-md w-full space-y-6 border border-military-700 transform scale-95 transition-transform duration-300" id="editModalBox">
+            <div class="flex justify-between items-center border-b border-military-800 pb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-emerald-400"></i> <span id="editModalTitle">Edit Exercise</span>
+                </h3>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form id="editExerciseForm" onsubmit="handleSaveEditExercise(event)" class="space-y-4">
+                <input type="hidden" id="editExId">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Today's Actual Result</label>
+                    <input type="text" id="editActualInput" required placeholder="e.g. 35 reps or 11:42" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Target / Aim</label>
+                    <input type="text" id="editTargetInput" required placeholder="e.g. 50 reps" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Personal Note / PR</label>
+                    <input type="text" id="editNoteInput" placeholder="e.g. Felt strong today" class="w-full bg-military-900 border border-military-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeEditModal()" class="flex-1 py-2.5 bg-military-800 hover:bg-military-700 text-gray-300 font-bold text-sm rounded-xl transition">Cancel</button>
+                    <button type="submit" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-sm rounded-xl transition">Update Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Data Settings & Reset Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel rounded-3xl p-6 lg:p-8 max-w-lg w-full space-y-6 border border-military-700 transform scale-95 transition-transform duration-300" id="settingsModalBox">
+            <div class="flex justify-between items-center border-b border-military-800 pb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-gear text-emerald-400"></i> Data Management & Settings
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="glass-card p-4 rounded-2xl border border-military-700 space-y-2">
+                    <h4 class="font-bold text-sm text-white">Export & Import Data</h4>
+                    <p class="text-xs text-gray-400">Backup your training records or load them on another device.</p>
+                    <div class="flex gap-3 pt-1">
+                        <button onclick="exportDataJSON()" class="flex-1 py-2 bg-military-800 hover:bg-military-700 text-emerald-400 font-bold text-xs rounded-xl border border-military-700 transition"><i class="fa-solid fa-download mr-1"></i> Export JSON</button>
+                        <label class="flex-1 py-2 bg-military-800 hover:bg-military-700 text-emerald-400 font-bold text-xs rounded-xl border border-military-700 transition text-center cursor-pointer">
+                            <i class="fa-solid fa-upload mr-1"></i> Import JSON <input type="file" accept=".json" onchange="importDataJSON(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="glass-card p-4 rounded-2xl border border-red-500/30 space-y-2 bg-red-950/10">
+                    <h4 class="font-bold text-sm text-red-400">Danger Zone</h4>
+                    <p class="text-xs text-gray-400">Reset today's progress or completely wipe all records and custom exercises.</p>
+                    <div class="flex gap-3 pt-1">
+                        <button onclick="confirmResetToday()" class="flex-1 py-2 bg-red-950/40 hover:bg-red-900/60 text-red-300 font-bold text-xs rounded-xl border border-red-800/40 transition">Reset Today</button>
+                        <button onclick="confirmResetAll()" class="flex-1 py-2 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl transition">Reset All Data</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-2 text-center">
+                <button onclick="closeSettingsModal()" class="px-6 py-2 bg-military-800 hover:bg-military-700 text-gray-300 font-bold text-xs rounded-xl transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Detail Modal -->
+    <div id="historyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel rounded-3xl p-6 lg:p-8 max-w-lg w-full space-y-6 border border-military-700 transform scale-95 transition-transform duration-300" id="historyModalBox">
+            <div class="flex justify-between items-center border-b border-military-800 pb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check text-emerald-400"></i> <span id="historyModalDate">Workout Record</span>
+                </h3>
+                <button onclick="closeHistoryModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="historyModalContent" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+                <!-- Dynamically loaded -->
+            </div>
+            <div class="text-center pt-2">
+                <button onclick="closeHistoryModal()" class="px-6 py-2 bg-military-800 hover:bg-military-700 text-gray-300 font-bold text-xs rounded-xl transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Banner -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 glass-panel px-5 py-3 rounded-2xl shadow-2xl border border-emerald-500/40 transform translate-y-24 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMessage" class="text-xs font-bold text-white">Action successful!</span>
+    </div>
+
+    <script>
+        const STORAGE_KEYS = {
+            EXERCISES: 'ndaExercises',
+            DAILY_RECORDS: 'ndaDailyRecords',
+            CUSTOM_EXERCISES: 'ndaCustomExercises',
+            STREAK: 'ndaStreak',
+            SETTINGS: 'ndaSettings'
+        };
+
+        const DEFAULT_EXERCISES = [
+            { id: 'run_2_4', name: 'Running — 2.4 km', target: '11:30', unit: 'min:sec', category: 'cardio', note: 'NDA Standard 2.4km test' },
+            { id: 'run_5', name: 'Running — 5 km', target: '25:00', unit: 'min:sec', category: 'cardio', note: 'Stamina endurance run' },
+            { id: 'pushups', name: 'Push-ups', target: '50', unit: 'reps', category: 'strength', note: 'Strict chest-to-ground form' },
+            { id: 'pullups', name: 'Pull-ups', target: '10', unit: 'reps', category: 'strength', note: 'Overhand strict grip' },
+            { id: 'squats', name: 'Squats', target: '80', unit: 'reps', category: 'strength', note: 'Deep parallel squat' },
+            { id: 'situps', name: 'Sit-ups', target: '50', unit: 'reps', category: 'core', note: 'Full range of motion' },
+            { id: 'plank', name: 'Plank', target: '3:00', unit: 'minutes', category: 'core', note: 'Solid rigid core hold' },
+            { id: 'sprint_100', name: '100 m Sprint', target: '13.5', unit: 'seconds', category: 'speed', note: 'Explosive acceleration' }
+        ];
+
+        const MOTIVATIONAL_QUOTES = [
+            "Discipline is the bridge between goals and military glory.",
+            "Sweat more in training, bleed less in combat.",
+            "An officer in the making never quits when tested.",
+            "Push your limits today so victory is assured tomorrow.",
+            "Willpower is a muscle. Train it every single day, Puchki!"
+        ];
+
+        let state = {
+            todayDate: new Date().toISOString().split('T')[0],
+            exercises: [],
+            customExercises: [],
+            dailyRecords: {}, // { 'YYYY-MM-DD': { exerciseId: { status: 'completed'|'skipped'|'pending', actual: '...', target: '...' } } }
+            streakData: { current: 0, longest: 0, lastActiveDate: null },
+            analyticsTab: '7days'
+        };
+
+        let performanceChartInstance = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFromLocalStorage();
+            initDateDisplay();
+            setMotivationalBanner();
+            renderAll();
+            checkAndResetDay();
+        });
+
+        function loadFromLocalStorage() {
+            try {
+                const savedExercises = localStorage.getItem(STORAGE_KEYS.EXERCISES);
+                state.exercises = savedExercises ? JSON.parse(savedExercises) : DEFAULT_EXERCISES;
+
+                const savedCustom = localStorage.getItem(STORAGE_KEYS.CUSTOM_EXERCISES);
+                state.customExercises = savedCustom ? JSON.parse(savedCustom) : [];
+
+                const savedRecords = localStorage.getItem(STORAGE_KEYS.DAILY_RECORDS);
+                state.dailyRecords = savedRecords ? JSON.parse(savedRecords) : {};
+
+                const savedStreak = localStorage.getItem(STORAGE_KEYS.STREAK);
+                state.streakData = savedStreak ? JSON.parse(savedStreak) : { current: 0, longest: 0, lastActiveDate: null };
+            } catch (e) {
+                console.error("Error loading localStorage data", e);
+                state.exercises = DEFAULT_EXERCISES;
+                state.customExercises = [];
+                state.dailyRecords = {};
+                state.streakData = { current: 0, longest: 0, lastActiveDate: null };
+            }
+        }
+
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEYS.EXERCISES, JSON.stringify(state.exercises));
+                localStorage.setItem(STORAGE_KEYS.CUSTOM_EXERCISES, JSON.stringify(state.customExercises));
+                localStorage.setItem(STORAGE_KEYS.DAILY_RECORDS, JSON.stringify(state.dailyRecords));
+                localStorage.setItem(STORAGE_KEYS.STREAK, JSON.stringify(state.streakData));
+            } catch (e) {
+                console.error("Error saving to localStorage", e);
+                showToast("Failed to save data. Storage quota exceeded?", "fa-triangle-exclamation");
+            }
+        }
+
+        function initDateDisplay() {
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateStr = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('headerDateDisplay').textContent = dateStr;
+        }
+
+        function setMotivationalBanner() {
+            const quote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
+            document.getElementById('motivationalMessage').textContent = `"${quote}"`;
+        }
+
+        function checkAndResetDay() {
+            const today = new Date().toISOString().split('T')[0];
+            if (state.todayDate !== today) {
+                state.todayDate = today;
+                renderAll();
+            }
+        }
+
+        function getAllExercises() {
+            return [...state.exercises, ...state.customExercises];
+        }
+
+        function getTodayRecord(exerciseId) {
+            if (!state.dailyRecords[state.todayDate]) {
+                state.dailyRecords[state.todayDate] = {};
+            }
+            if (!state.dailyRecords[state.todayDate][exerciseId]) {
+                const ex = getAllExercises().find(e => e.id === exerciseId);
+                state.dailyRecords[state.todayDate][exerciseId] = {
+                    status: 'pending', // 'completed', 'skipped', 'pending'
+                    actual: '',
+                    target: ex ? ex.target : ''
+                };
+            }
+            return state.dailyRecords[state.todayDate][exerciseId];
+        }
+
+        function renderAll() {
+            renderExerciseCards();
+            renderChecklist();
+            renderGoals();
+            renderAnalytics();
+            renderHistory();
+            updateDashboardStats();
+            saveToLocalStorage();
+        }
+
+        function renderExerciseCards() {
+            const container = document.getElementById('exerciseCardsGrid');
+            container.innerHTML = '';
+
+            const allEx = getAllExercises();
+            allEx.forEach(ex => {
+                const record = getTodayRecord(ex.id);
+                const isCompleted = record.status === 'completed';
+                const isSkipped = record.status === 'skipped';
+
+                let statusBadge = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-military-800 text-gray-400 font-bold uppercase">Pending</span>`;
+                if (isCompleted) statusBadge = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold uppercase border border-emerald-500/30">Completed</span>`;
+                if (isSkipped) statusBadge = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 font-bold uppercase border border-red-500/30">Skipped</span>`;
+
+                const card = document.createElement('div');
+                card.className = `glass-card p-5 rounded-2xl border transition flex flex-col justify-between space-y-4 ${isCompleted ? 'border-emerald-500/40 bg-emerald-950/10' : 'border-military-700/60'}`;
+                
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">${ex.category || 'Custom'}</span>
+                            ${statusBadge}
+                        </div>
+                        <h4 class="font-bold text-white text-base">${escapeHtml(ex.name)}</h4>
+                        <p class="text-xs text-gray-400">${escapeHtml(ex.note || 'NDA fitness target')}</p>
+                    </div>
+
+                    <div class="space-y-2 py-2 border-y border-military-800 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Target Aim:</span>
+                            <span class="font-bold text-white">${escapeHtml(ex.target)} ${escapeHtml(ex.unit)}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Today's Actual:</span>
+                            <span class="font-bold text-emerald-400">${record.actual ? escapeHtml(record.actual) + ' ' + escapeHtml(ex.unit) : 'Not logged'}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 pt-1">
+                        <button onclick="setStatus('${ex.id}', 'completed')" class="flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 ${isCompleted ? 'bg-emerald-600 text-black shadow-lg' : 'bg-military-800 text-gray-300 hover:bg-military-700 border border-military-700'}">
+                            <i class="fa-solid fa-check"></i> Done
+                        </button>
+                        <button onclick="setStatus('${ex.id}', 'skipped')" class="py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 ${isSkipped ? 'bg-red-600 text-white shadow-lg' : 'bg-military-800 text-gray-400 hover:bg-military-700 border border-military-700'}" title="Skip">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <button onclick="openEditModal('${ex.id}')" class="py-2 px-3 rounded-xl text-xs font-bold bg-military-800 text-gray-300 hover:bg-military-700 border border-military-700 transition" title="Edit Actual & Target">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        ${ex.isCustom ? `<button onclick="deleteCustomExercise('${ex.id}')" class="py-2 px-3 rounded-xl text-xs font-bold bg-military-800 text-red-400 hover:bg-red-950/40 border border-military-700 transition" title="Delete Custom Exercise"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderChecklist() {
+            const container = document.getElementById('dailyChecklistContainer');
+            container.innerHTML = '';
+
+            const allEx = getAllExercises();
+            let completedCount = 0;
+
+            allEx.forEach(ex => {
+                const record = getTodayRecord(ex.id);
+                if (record.status === 'completed') completedCount++;
+
+                let checkboxIcon = '<i class="fa-regular fa-square text-gray-500 text-base"></i>';
+                let textColor = 'text-gray-300';
+                if (record.status === 'completed') {
+                    checkboxIcon = '<i class="fa-solid fa-square-check text-emerald-400 text-base"></i>';
+                    textColor = 'text-white line-through opacity-75';
+                } else if (record.status === 'skipped') {
+                    checkboxIcon = '<i class="fa-solid fa-square-xmark text-red-400 text-base"></i>';
+                    textColor = 'text-gray-500 italic';
+                }
+
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3 rounded-xl bg-military-900/60 border border-military-800 hover:border-military-700 transition';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3 cursor-pointer select-none" onclick="cycleStatus('${ex.id}')">
+                        <span class="text-lg">${checkboxIcon}</span>
+                        <div>
+                            <div class="text-xs font-bold ${textColor}">${escapeHtml(ex.name)}</div>
+                            <div class="text-[10px] text-gray-400">Target: ${escapeHtml(ex.target)} ${escapeHtml(ex.unit)}</div>
+                        </div>
+                    </div>
+                    <div class="text-[11px] font-bold text-emerald-400">
+                        ${record.actual ? escapeHtml(record.actual) + ' ' + escapeHtml(ex.unit) : '<span class="text-gray-500 font-normal">Pending</span>'}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('checklistBadge').textContent = `${completedCount}/${allEx.length} Done`;
+        }
+
+        function renderGoals() {
+            const container = document.getElementById('goalsContainer');
+            container.innerHTML = '';
+
+            const allEx = getAllExercises();
+            allEx.forEach(ex => {
+                const record = getTodayRecord(ex.id);
+                const actualNum = parseFloat(record.actual) || 0;
+                const targetNum = parseFloat(ex.target) || 1;
+                let percent = Math.min(100, Math.round((actualNum / targetNum) * 100));
+
+                const card = document.createElement('div');
+                card.className = 'glass-card p-4 rounded-2xl border border-military-700/60 space-y-3';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold text-white text-sm">${escapeHtml(ex.name)}</h4>
+                        <span class="text-xs font-bold text-emerald-400">${percent}%</span>
+                    </div>
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between text-gray-400">
+                            <span>Current: <strong class="text-white">${record.actual ? escapeHtml(record.actual) : '0'} ${escapeHtml(ex.unit)}</strong></span>
+                            <span>Target: <strong class="text-emerald-400">${escapeHtml(ex.target)} ${escapeHtml(ex.unit)}</strong></span>
+                        </div>
+                        <div class="w-full bg-military-900 h-2 rounded-full overflow-hidden border border-military-800">
+                            <div class="bg-emerald-500 h-full transition-all duration-500 rounded-full" style="width: ${percent}%"></div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updateDashboardStats() {
+            const allEx = getAllExercises();
+            const todayRecs = state.dailyRecords[state.todayDate] || {};
+            
+            let completed = 0;
+            allEx.forEach(ex => {
+                if (todayRecs[ex.id] && todayRecs[ex.id].status === 'completed') completed++;
+            });
+
+            const percent = allEx.length > 0 ? Math.round((completed / allEx.length) * 100) : 0;
+            
+            document.getElementById('statCompletion').textContent = `${percent}%`;
+            document.getElementById('statCompletedCount').textContent = `${completed}/${allEx.length}`;
+            document.getElementById('statStreak').innerHTML = `${state.streakData.current} <span class="text-xs font-normal text-gray-400">Days</span>`;
+
+            // Total workouts logged across history
+            let totalWorkoutsCount = 0;
+            Object.keys(state.dailyRecords).forEach(date => {
+                const dayRecs = state.dailyRecords[date];
+                const dayDone = Object.values(dayRecs).filter(r => r.status === 'completed').length;
+                if (dayDone > 0) totalWorkoutsCount++;
+            });
+            document.getElementById('statTotalWorkouts').textContent = totalWorkoutsCount;
+
+            updateStreakSystem(percent);
+        }
+
+        function updateStreakSystem(todayPercent) {
+            const today = state.todayDate;
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+            // Condition for streak fulfillment: e.g., >= 50% completion or at least 1 completed
+            const isSatisfied = todayPercent >= 50;
+
+            if (isSatisfied) {
+                if (state.streakData.lastActiveDate !== today) {
+                    if (state.streakData.lastActiveDate === yesterday) {
+                        state.streakData.current += 1;
+                    } else if (!state.streakData.lastActiveDate) {
+                        state.streakData.current = 1;
+                    } else if (state.streakData.lastActiveDate !== today) {
+                        // If gap was more than 1 day, reset streak unless it was today
+                        // But if today is satisfied for the first time, check gap from last active
+                        const diffTime = Math.abs(new Date(today) - new Date(state.streakData.lastActiveDate));
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        if (diffDays === 1) {
+                            state.streakData.current += 1;
+                        } else if (diffDays > 1) {
+                            state.streakData.current = 1;
+                        }
+                    }
+                    state.streakData.lastActiveDate = today;
+                    if (state.streakData.current > state.streakData.longest) {
+                        state.streakData.longest = state.streakData.current;
+                    }
+                }
+            }
+        }
+
+        function setStatus(exerciseId, status) {
+            const record = getTodayRecord(exerciseId);
+            record.status = record.status === status ? 'pending' : status;
+            renderAll();
+            showToast(`Exercise marked as ${record.status}!`, 'fa-circle-check');
+        }
+
+        function cycleStatus(exerciseId) {
+            const record = getTodayRecord(exerciseId);
+            if (record.status === 'pending') record.status = 'completed';
+            else if (record.status === 'completed') record.status = 'skipped';
+            else record.status = 'pending';
+            renderAll();
+        }
+
+        // Edit Modal
+        let activeEditId = null;
+        function openEditModal(exerciseId) {
+            activeEditId = exerciseId;
+            const ex = getAllExercises().find(e => e.id === exerciseId);
+            const record = getTodayRecord(exerciseId);
+
+            document.getElementById('editModalTitle').textContent = `Edit: ${ex.name}`;
+            document.getElementById('editActualInput').value = record.actual || '';
+            document.getElementById('editTargetInput').value = ex.target || '';
+            document.getElementById('editNoteInput').value = ex.note || '';
+
+            const modal = document.getElementById('editExerciseModal');
+            const box = document.getElementById('editModalBox');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editExerciseModal');
+            const box = document.getElementById('editModalBox');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+        }
+
+        function handleSaveEditExercise(event) {
+            event.preventDefault();
+            if (!activeEditId) return;
+
+            const actualVal = document.getElementById('editActualInput').value.trim();
+            const targetVal = document.getElementById('editTargetInput').value.trim();
+            const noteVal = document.getElementById('editNoteInput').value.trim();
+
+            const record = getTodayRecord(activeEditId);
+            record.actual = actualVal;
+            record.target = targetVal;
+
+            // Update exercise master target/note as well
+            const ex = getAllExercises().find(e => e.id === activeEditId);
+            if (ex) {
+                ex.target = targetVal;
+                ex.note = noteVal;
+            }
+
+            closeEditModal();
+            renderAll();
+            showToast("Exercise record successfully updated!", 'fa-circle-check');
+        }
+
+        // Custom Exercise Modal
+        function openCustomExerciseModal() {
+            document.getElementById('customExerciseForm').reset();
+            const modal = document.getElementById('customExerciseModal');
+            const box = document.getElementById('customModalBox');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }
+
+        function closeCustomExerciseModal() {
+            const modal = document.getElementById('customExerciseModal');
+            const box = document.getElementById('customModalBox');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+        }
+
+        function handleSaveCustomExercise(event) {
+            event.preventDefault();
+            const name = document.getElementById('ceName').value.trim();
+            const target = document.getElementById('ceTarget').value.trim();
+            const unit = document.getElementById('ceUnit').value.trim();
+            const note = document.getElementById('ceNote').value.trim();
+
+            if (!name || !target || !unit) return;
+
+            // Check duplicate name
+            const exists = getAllExercises().some(e => e.name.toLowerCase() === name.toLowerCase());
+            if (exists) {
+                showToast("An exercise with this name already exists!", 'fa-triangle-exclamation');
+                return;
+            }
+
+            const newEx = {
+                id: 'custom_' + Date.now(),
+                name: name,
+                target: target,
+                unit: unit,
+                category: 'custom',
+                note: note || 'Custom cadet exercise',
+                isCustom: true
+            };
+
+            state.customExercises.push(newEx);
+            closeCustomExerciseModal();
+            renderAll();
+            showToast("Custom exercise added successfully!", 'fa-circle-check');
+        }
+
+        function deleteCustomExercise(id) {
+            state.customExercises = state.customExercises.filter(e => e.id !== id);
+            // Clean record if any
+            if (state.dailyRecords[state.todayDate] && state.dailyRecords[state.todayDate][id]) {
+                delete state.dailyRecords[state.todayDate][id];
+            }
+            renderAll();
+            showToast("Custom exercise deleted.", 'fa-trash');
+        }
+
+        function switchAnalyticsTab(tab) {
+            state.analyticsTab = tab;
+            document.getElementById('btnTab7').className = tab === '7days' ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-black transition' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-military-800 text-gray-300 hover:bg-military-700 transition';
+            document.getElementById('btnTab30').className = tab === '30days' ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-black transition' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-military-800 text-gray-300 hover:bg-military-700 transition';
+            renderAnalytics();
+        }
+
+        function renderAnalytics() {
+            const daysCount = state.analyticsTab === '7days' ? 7 : 30;
+            const labels = [];
+            const completionData = [];
+
+            let totalCompletionSum = 0;
+            let activeDaysCount = 0;
+            let totalCompletedExercises = 0;
+
+            const allExCount = getAllExercises().length;
+
+            for (let i = daysCount - 1; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                const dateStr = d.toISOString().split('T')[0];
+                const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                labels.push(label);
+
+                const dayRecs = state.dailyRecords[dateStr] || {};
+                let dayCompleted = 0;
+                Object.values(dayRecs).forEach(r => {
+                    if (r.status === 'completed') {
+                        dayCompleted++;
+                        totalCompletedExercises++;
+                    }
+                });
+
+                const rate = allExCount > 0 ? Math.round((dayCompleted / allExCount) * 100) : 0;
+                completionData.push(rate);
+                totalCompletionSum += rate;
+                if (dayCompleted > 0) activeDaysCount++;
+            }
+
+            const avgWeeklyRate = Math.round(totalCompletionSum / daysCount);
+            document.getElementById('analyticsWeeklyRate').textContent = `${avgWeeklyRate}%`;
+            document.getElementById('analyticsLongestStreak').textContent = `${state.streakData.longest} Days`;
+            document.getElementById('analyticsTotalExercises').textContent = totalCompletedExercises;
+            document.getElementById('analyticsConsistency').textContent = `${avgWeeklyRate}%`;
+
+            // Render Chart
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            if (performanceChartInstance) {
+                performanceChartInstance.destroy();
+            }
+
+            performanceChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Completion %',
+                        data: completionData,
+                        borderColor: '#34d399',
+                        backgroundColor: 'rgba(52, 211, 153, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: '#34d399',
+                        pointBorderColor: '#111812',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(78, 107, 82, 0.15)' },
+                            ticks: { color: '#9ca3af', font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('historyContainer');
+            container.innerHTML = '';
+
+            const dates = Object.keys(state.dailyRecords).sort().reverse();
+            if (dates.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">No historical records found yet. Complete your daily protocol to build history.</p>`;
+                return;
+            }
+
+            dates.forEach(dateStr => {
+                const dayRecs = state.dailyRecords[dateStr];
+                const allEx = getAllExercises();
+                let completed = 0;
+                let skipped = 0;
+
+                Object.values(dayRecs).forEach(r => {
+                    if (r.status === 'completed') completed++;
+                    if (r.status === 'skipped') skipped++;
+                });
+
+                const percent = allEx.length > 0 ? Math.round((completed / allEx.length) * 100) : 0;
+
+                const div = document.createElement('div');
+                div.className = 'glass-card p-4 rounded-2xl border border-military-700/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-emerald-500/40 transition cursor-pointer';
+                div.setAttribute('onclick', `openHistoryModal('${dateStr}')`);
+                div.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-military-800 flex items-center justify-center text-emerald-400 font-bold text-xs border border-military-700">
+                            <i class="fa-solid fa-calendar-day"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-white text-sm">${dateStr}</div>
+                            <div class="text-xs text-gray-400 flex gap-3 mt-0.5">
+                                <span class="text-emerald-400">✅ ${completed} Completed</span>
+                                <span class="text-red-400">❌ ${skipped} Skipped</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-emerald-400">${percent}% Adherence</div>
+                            <div class="w-24 bg-military-900 h-1.5 rounded-full overflow-hidden mt-1 border border-military-800">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: ${percent}%"></div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-500 text-xs"></i>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function openHistoryModal(dateStr) {
+            document.getElementById('historyModalDate').textContent = `Record: ${dateStr}`;
+            const content = document.getElementById('historyModalContent');
+            content.innerHTML = '';
+
+            const dayRecs = state.dailyRecords[dateStr] || {};
+            const allEx = getAllExercises();
+
+            allEx.forEach(ex => {
+                const rec = dayRecs[ex.id] || { status: 'pending', actual: '' };
+                let badge = '<span class="text-gray-400 text-xs">Pending</span>';
+                if (rec.status === 'completed') badge = '<span class="text-emerald-400 font-bold text-xs">Completed</span>';
+                else if (rec.status === 'skipped') badge = '<span class="text-red-400 font-bold text-xs">Skipped</span>';
+
+                const row = document.createElement('div');
+                row.className = 'flex justify-between items-center p-3 rounded-xl bg-military-900 border border-military-800 text-xs';
+                row.innerHTML = `
+                    <div>
+                        <div class="font-bold text-white">${escapeHtml(ex.name)}</div>
+                        <div class="text-gray-400 text-[10px]">Actual: ${rec.actual ? escapeHtml(rec.actual) + ' ' + escapeHtml(ex.unit) : 'Not recorded'}</div>
+                    </div>
+                    <div>${badge}</div>
+                `;
+                content.appendChild(row);
+            });
+
+            const modal = document.getElementById('historyModal');
+            const box = document.getElementById('historyModalBox');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }
+
+        function closeHistoryModal() {
+            const modal = document.getElementById('historyModal');
+            const box = document.getElementById('historyModalBox');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+        }
+
+        function openSettingsModal() {
+            const modal = document.getElementById('settingsModal');
+            const box = document.getElementById('settingsModalBox');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }
+
+        function closeSettingsModal() {
+            const modal = document.getElementById('settingsModal');
+            const box = document.getElementById('settingsModalBox');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+        }
+
+        function exportDataJSON() {
+            const dataToExport = {
+                exercises: state.exercises,
+                customExercises: state.customExercises,
+                dailyRecords: state.dailyRecords,
+                streakData: state.streakData
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataToExport, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `nda_fitness_backup_${state.todayDate}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("Data successfully exported!", 'fa-download');
+        }
+
+        function importDataJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed.exercises) state.exercises = parsed.exercises;
+                    if (parsed.customExercises) state.customExercises = parsed.customExercises;
+                    if (parsed.dailyRecords) state.dailyRecords = parsed.dailyRecords;
+                    if (parsed.streakData) state.streakData = parsed.streakData;
+                    
+                    renderAll();
+                    closeSettingsModal();
+                    showToast("Data successfully imported!", 'fa-upload');
+                } catch (err) {
+                    showToast("Invalid JSON backup file!", 'fa-triangle-exclamation');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function confirmResetToday() {
+            if (confirm("Are you sure you want to reset today's progress?")) {
+                state.dailyRecords[state.todayDate] = {};
+                renderAll();
+                closeSettingsModal();
+                showToast("Today's progress has been reset.", 'fa-rotate-right');
+            }
+        }
+
+        function confirmResetAll() {
+            if (confirm("WARNING: This will wipe all records, custom exercises, and streaks permanently! Are you sure?")) {
+                localStorage.clear();
+                loadFromLocalStorage();
+                renderAll();
+                closeSettingsModal();
+                showToast("All data wiped successfully.", 'fa-trash');
+            }
+        }
+
+        function showToast(message, iconClass = 'fa-circle-check') {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = message;
+            document.getElementById('toastIcon').className = `fa-solid ${iconClass} text-emerald-400 text-lg`;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // ---------------- Background Music Controls ----------------
+        const bgMusic = document.getElementById('bgMusic');
+        let musicMuted = (localStorage.getItem('bgMusicMuted') === 'true'); // default: unmuted
+
+        function updateMusicButtonUI() {
+            const icon = document.getElementById('musicToggleIcon');
+            const label = document.getElementById('musicToggleLabel');
+            if (musicMuted) {
+                icon.className = 'fa-solid fa-volume-xmark text-emerald-400';
+                label.textContent = 'Music: Off';
+            } else {
+                icon.className = 'fa-solid fa-volume-high text-emerald-400';
+                label.textContent = 'Music: On';
+            }
+        }
+
+        function toggleMusic() {
+            musicMuted = !musicMuted;
+            bgMusic.muted = musicMuted;
+            localStorage.setItem('bgMusicMuted', musicMuted ? 'true' : 'false');
+            if (!musicMuted && bgMusic.paused) {
+                bgMusic.play().catch(() => {});
+            }
+            updateMusicButtonUI();
+        }
+
+        // Try to autoplay as soon as the page loads.
+        (function initMusicAutoplay() {
+            bgMusic.muted = musicMuted;
+            updateMusicButtonUI();
+            bgMusic.play().catch(() => {
+                // Most browsers block audio-with-sound autoplay until the user interacts.
+                // Start playback on the very first click/tap anywhere on the page.
+                const resumeOnGesture = () => {
+                    bgMusic.play().catch(() => {});
+                    document.removeEventListener('click', resumeOnGesture);
+                };
+                document.addEventListener('click', resumeOnGesture, { once: true });
+            });
+        })();
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
