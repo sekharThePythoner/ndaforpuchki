@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oneshots by NDA Sir — Puchki's Physics Vault 🎥⚛️</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts: Fredoka & Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cutesky: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#075985' },
+                        ndagreen: { 400: '#86efac', 500: '#22c55e', 700: '#15803d', 800: '#166534' }
+                    },
+                    fontFamily: {
+                        sans: ['"Quicksand"', 'sans-serif'],
+                        cute: ['"Fredoka"', 'sans-serif'],
+                    },
+                    animation: { 'wiggle': 'wiggle 1s ease-in-out infinite' },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+            color: #075985;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .cute-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2.5px solid var(--card-border, rgba(255, 255, 255, 0.85));
+            box-shadow: 0 10px 25px var(--card-shadow, rgba(56, 189, 248, 0.15));
+            border-radius: 1.5rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(6deg); }
+        }
+        .floating-emoji { animation: float 6s ease-in-out infinite; }
+
+        .card-hover { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .card-hover:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 20px 35px var(--card-shadow-hover, rgba(56, 189, 248, 0.25));
+            background: rgba(255, 255, 255, 0.85);
+            border-color: var(--card-border-hover, #7dd3fc);
+        }
+
+        .play-badge { transition: transform 0.25s ease, background 0.25s ease; }
+        .video-card:hover .play-badge {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: rgba(14, 165, 233, 0.95);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f0f9ff; }
+        ::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 10px; }
+
+        .search-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(56,189,248,0.35); }
+    </style>
+</head>
+<body class="p-4 md:p-6 relative">
+
+    <div class="absolute top-10 left-8 text-4xl opacity-40 floating-emoji pointer-events-none">☁️</div>
+    <div class="absolute top-48 right-10 text-3xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 2s;">🎥</div>
+    <div class="absolute bottom-20 left-16 text-4xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 4s;">✨</div>
+    <div class="absolute bottom-10 right-24 text-3xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 1.5s;">⚛️</div>
+
+    <header class="max-w-6xl mx-auto flex justify-between items-center mb-8 relative z-10">
+        <a href="physics.html" class="cute-glass px-4 py-2 rounded-full text-sm font-bold text-cutesky-500 hover:bg-white transition shadow-sm flex items-center gap-2">
+            <span>←</span> Back to Physics
+        </a>
+        <div class="cute-glass px-4 py-1.5 rounded-full text-xs font-bold text-cutesky-500 shadow-sm flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cutesky-400 animate-pulse"></span>
+            developed by your chipkali 💗
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto relative z-10 pb-16">
+
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 mx-auto bg-white rounded-full flex items-center justify-center text-4xl shadow-md border-4 border-cutesky-100 mb-3 floating-emoji">
+                🎥
+            </div>
+            <h1 class="text-3xl md:text-4xl font-cute font-bold text-cutesky-800 mb-2">Oneshots by NDA Sir</h1>
+            <p class="text-cutesky-500 font-bold text-sm md:text-base">Crisp, exam-focused walkthroughs — chapter by chapter ☁️✨</p>
+        </div>
+
+        <!-- ===================== FEATURED SECTION ===================== -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-cute font-bold text-cutesky-800 mb-5 flex items-center gap-2">
+                <span class="text-3xl">🌟</span> Featured
+            </h2>
+            <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-5"></div>
+        </section>
+
+        <!-- ===================== MAIN VIDEOS SECTION ===================== -->
+        <section>
+            <h2 class="text-2xl font-cute font-bold text-cutesky-800 mb-5 flex items-center gap-2">
+                <span class="text-3xl">📖</span> All Chapters
+            </h2>
+
+            <div class="cute-glass p-3 mb-6 flex items-center gap-3" style="--card-border: rgba(56,189,248,0.5); --card-shadow: rgba(56,189,248,0.18);">
+                <span class="text-xl pl-2">🔍</span>
+                <input
+                    id="videoSearch"
+                    type="text"
+                    placeholder="Search videos by title..."
+                    class="search-input w-full bg-transparent py-2 pr-3 text-cutesky-800 placeholder-cutesky-400 font-semibold rounded-xl"
+                    oninput="filterVideos()"
+                />
+            </div>
+
+            <div id="videoCount" class="text-sm font-bold text-cutesky-500 mb-4"></div>
+
+            <div id="videosGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+            <div id="noResults" class="hidden text-center py-12 cute-glass mt-4">
+                <div class="text-4xl mb-2">🙈</div>
+                <p class="font-bold text-cutesky-600">No videos match that search, Puchki!</p>
+            </div>
+        </section>
+
+    </main>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggleBtn" onclick="toggleMusic()" class="fixed bottom-6 left-6 cute-glass w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-lg z-[100] hover:scale-110 transition-transform">
+        🔇
+    </button>
+
+    <script>
+        /* ============ FEATURED DATA ============
+           Add more featured videos here the same way: { id, title, url }
+        */
+        const featured = [
+            { id: "M085VqAnjpE", title: "Physics — All Important Formulae", url: "https://youtu.be/M085VqAnjpE?si=nJY5EsziPYCjij2I" },
+            { id: "_E-w_0RWrq0", title: "NDA Physics: Complete Revision", url: "https://www.youtube.com/live/_E-w_0RWrq0?si=lWk7NcN9icdzH9gb" },
+        ];
+
+        /* ============ MAIN VIDEO DATA ============
+           To add a new video: { id: "VIDEO_ID", title: "Chapter name", url: "https://youtu.be/VIDEO_ID or /live/VIDEO_ID" }
+           Thumbnail is auto-generated from the video id.
+        */
+        const videos = [
+            { id: "lsRKB81HliM", title: "Units & Measurements + Kinematics 1D", url: "https://www.youtube.com/live/lsRKB81HliM?si=fhUMWtEiN8fDIr_o" },
+            { id: "Q8_bbaMgURI", title: "Work Power Energy + Kinematics 2D", url: "https://www.youtube.com/live/Q8_bbaMgURI?si=4UPM6FZPUku9Gur_" },
+            { id: "k4VN1r78swM", title: "Gravitation | Rotational Motion", url: "https://www.youtube.com/live/k4VN1r78swM?si=jhJcRNzt0rb-lDbZ" },
+            { id: "pmE9VyxKXVY", title: "Sound and Waves | Electricity", url: "https://www.youtube.com/live/pmE9VyxKXVY?si=NYHLAFL0qmvu9pH7" },
+            { id: "SHf5rAUbMA8", title: "Electricity One Shot", url: "https://www.youtube.com/live/SHf5rAUbMA8?si=ZbPhXBqHREzBZ6Sj" },
+            { id: "LvkxLuLDOMM", title: "Magnetism One Shot", url: "https://www.youtube.com/live/LvkxLuLDOMM?si=qId2B9cwKNsy9_6K" },
+            { id: "KnpZewEiqNI", title: "Light One Shot", url: "https://www.youtube.com/live/KnpZewEiqNI?si=FtnEdtDuHKY61D4m" },
+        ];
+
+        const borderPalette = [
+            { border: 'rgba(56,189,248,0.55)',  hover: 'rgba(56,189,248,0.9)',  shadow: 'rgba(56,189,248,0.2)',  shadowHover: 'rgba(56,189,248,0.4)' },
+            { border: 'rgba(167,139,250,0.55)', hover: 'rgba(167,139,250,0.9)', shadow: 'rgba(167,139,250,0.2)', shadowHover: 'rgba(167,139,250,0.4)' },
+            { border: 'rgba(244,114,182,0.55)', hover: 'rgba(244,114,182,0.9)', shadow: 'rgba(244,114,182,0.2)', shadowHover: 'rgba(244,114,182,0.4)' },
+            { border: 'rgba(52,211,153,0.55)',  hover: 'rgba(52,211,153,0.9)',  shadow: 'rgba(52,211,153,0.2)',  shadowHover: 'rgba(52,211,153,0.4)' },
+            { border: 'rgba(251,146,60,0.55)',  hover: 'rgba(251,146,60,0.9)',  shadow: 'rgba(251,146,60,0.2)',  shadowHover: 'rgba(251,146,60,0.4)' },
+            { border: 'rgba(45,212,191,0.55)',  hover: 'rgba(45,212,191,0.9)',  shadow: 'rgba(45,212,191,0.2)',  shadowHover: 'rgba(45,212,191,0.4)' },
+            { border: 'rgba(129,140,248,0.55)', hover: 'rgba(129,140,248,0.9)', shadow: 'rgba(129,140,248,0.2)', shadowHover: 'rgba(129,140,248,0.4)' },
+            { border: 'rgba(251,191,36,0.55)',  hover: 'rgba(251,191,36,0.9)',  shadow: 'rgba(251,191,36,0.2)',  shadowHover: 'rgba(251,191,36,0.4)' },
+            { border: 'rgba(251,113,133,0.55)', hover: 'rgba(251,113,133,0.9)', shadow: 'rgba(251,113,133,0.2)', shadowHover: 'rgba(251,113,133,0.4)' },
+        ];
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function videoCardHtml(v, i, big) {
+            const c = borderPalette[i % borderPalette.length];
+            return `
+                <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener noreferrer"
+                   class="video-card cute-glass ${big ? 'p-4' : 'p-3'} flex flex-col group card-hover cursor-pointer"
+                   style="--card-border: ${c.border}; --card-shadow: ${c.shadow}; --card-border-hover: ${c.hover}; --card-shadow-hover: ${c.shadowHover};">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-3 bg-cutesky-100 border-2 border-white shadow-sm">
+                        <img src="https://img.youtube.com/vi/${escapeHtml(v.id)}/hqdefault.jpg" alt="${escapeHtml(v.title)} thumbnail"
+                             class="w-full h-full object-cover"
+                             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${escapeHtml(v.id)}/mqdefault.jpg';" />
+                        <div class="play-badge absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${big ? 'w-14 h-14 text-2xl' : 'w-12 h-12 text-xl'} rounded-full bg-white/90 flex items-center justify-center shadow-md">
+                            ▶️
+                        </div>
+                    </div>
+                    <h3 class="${big ? 'text-base' : 'text-sm'} font-cute font-bold text-gray-800 leading-snug">${escapeHtml(v.title)}</h3>
+                </a>
+            `;
+        }
+
+        function renderFeatured() {
+            document.getElementById('featuredGrid').innerHTML =
+                featured.map((v, i) => videoCardHtml(v, i, true)).join('');
+        }
+
+        function renderVideos(list) {
+            const grid = document.getElementById('videosGrid');
+            const noResults = document.getElementById('noResults');
+            const videoCount = document.getElementById('videoCount');
+
+            videoCount.textContent = `${list.length} video${list.length !== 1 ? 's' : ''}`;
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+            noResults.classList.add('hidden');
+
+            grid.innerHTML = list.map((v, i) => videoCardHtml(v, i, false)).join('');
+        }
+
+        function filterVideos() {
+            const q = document.getElementById('videoSearch').value.trim().toLowerCase();
+            const filtered = videos.filter(v => v.title.toLowerCase().includes(q));
+            renderVideos(filtered);
+        }
+
+        renderFeatured();
+        renderVideos(videos);
+
+        /* ============ MUSIC SYNC (same mechanism as other pages) ============ */
+        document.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('musicToggleBtn');
+
+            const savedTime = localStorage.getItem('puchki_music_time') || 0;
+            const isPlaying = localStorage.getItem('puchki_music_playing') === 'true';
+
+            audio.currentTime = parseFloat(savedTime);
+
+            if (isPlaying) {
+                audio.play().then(() => {
+                    musicBtn.innerHTML = '🔊';
+                }).catch(e => {
+                    console.log("Autoplay blocked", e);
+                    musicBtn.innerHTML = '🔇';
+                    localStorage.setItem('puchki_music_playing', 'false');
+                });
+            }
+
+            audio.addEventListener('timeupdate', () => {
+                localStorage.setItem('puchki_music_time', audio.currentTime);
+            });
+
+            window.toggleMusic = function() {
+                if (audio.paused) {
+                    audio.play();
+                    localStorage.setItem('puchki_music_playing', 'true');
+                    musicBtn.innerHTML = '🔊';
+                } else {
+                    audio.pause();
+                    localStorage.setItem('puchki_music_playing', 'false');
+                    musicBtn.innerHTML = '🔇';
+                }
+            };
+        });
+    </script>
+</body>
+</html>
