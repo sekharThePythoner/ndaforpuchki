@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puchki's Physics Vault ⚛️✨</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts: Fredoka & Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cutesky: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#075985' },
+                        ndagreen: { 400: '#86efac', 500: '#22c55e', 700: '#15803d', 800: '#166534' }
+                    },
+                    fontFamily: {
+                        sans: ['"Quicksand"', 'sans-serif'],
+                        cute: ['"Fredoka"', 'sans-serif'],
+                    },
+                    animation: { 'wiggle': 'wiggle 1s ease-in-out infinite' },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+            color: #075985;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .cute-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2.5px solid var(--card-border, rgba(255, 255, 255, 0.85));
+            box-shadow: 0 10px 25px var(--card-shadow, rgba(56, 189, 248, 0.15));
+            border-radius: 1.5rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(6deg); }
+        }
+        .floating-emoji { animation: float 6s ease-in-out infinite; }
+
+        .card-hover { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .card-hover:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 20px 35px var(--card-shadow-hover, rgba(56, 189, 248, 0.25));
+            background: rgba(255, 255, 255, 0.85);
+            border-color: var(--card-border-hover, #7dd3fc);
+        }
+
+        .book-cover-fallback {
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f0f9ff; }
+        ::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 10px; }
+
+        .search-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(56,189,248,0.35); }
+
+        .toast {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6 relative">
+
+    <div class="absolute top-10 left-8 text-4xl opacity-40 floating-emoji pointer-events-none">☁️</div>
+    <div class="absolute top-48 right-10 text-3xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 2s;">⚛️</div>
+    <div class="absolute bottom-20 left-16 text-4xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 4s;">✨</div>
+    <div class="absolute bottom-10 right-24 text-3xl opacity-40 floating-emoji pointer-events-none" style="animation-delay: 1.5s;">📘</div>
+
+    <header class="max-w-6xl mx-auto flex justify-between items-center mb-8 relative z-10">
+        <a href="gk.html" class="cute-glass px-4 py-2 rounded-full text-sm font-bold text-cutesky-500 hover:bg-white transition shadow-sm flex items-center gap-2">
+            <span>←</span> Back to GK
+        </a>
+        <div class="cute-glass px-4 py-1.5 rounded-full text-xs font-bold text-cutesky-500 shadow-sm flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cutesky-400 animate-pulse"></span>
+            developed by your chipkali 💗
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto relative z-10 pb-16">
+
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 mx-auto bg-white rounded-full flex items-center justify-center text-4xl shadow-md border-4 border-cutesky-100 mb-3 floating-emoji">
+                ⚛️
+            </div>
+            <h1 class="text-3xl md:text-4xl font-cute font-bold text-cutesky-800 mb-2">Physics — 80 Marks</h1>
+            <p class="text-cutesky-500 font-bold text-sm md:text-base">Every resource you need, all in one glassy little galaxy ☁️✨</p>
+        </div>
+
+        <!-- ===================== FEATURED SECTION ===================== -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-cute font-bold text-cutesky-800 mb-6 flex items-center gap-2">
+                <span class="text-3xl">🌟</span> Featured Resources
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+
+                <a href="oneshotrakshaksir.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(56,189,248,0.55); --card-shadow: rgba(56,189,248,0.2); --card-border-hover: rgba(56,189,248,0.9); --card-shadow-hover: rgba(56,189,248,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">🎬</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">Oneshots by Rakshak Sir (NDA)</h3>
+                    <p class="text-sm text-gray-600 font-medium">Full NDA physics in one shot. 🚀</p>
+                </a>
+
+                <a href="oneshot12th.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(167,139,250,0.55); --card-shadow: rgba(167,139,250,0.2); --card-border-hover: rgba(167,139,250,0.9); --card-shadow-hover: rgba(167,139,250,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">🎓</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">Oneshots by Rakshak Sir (Class 12th)</h3>
+                    <p class="text-sm text-gray-600 font-medium">Board-level depth, NDA-ready. 📘</p>
+                </a>
+
+                <a href="oneshotnda.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(244,114,182,0.55); --card-shadow: rgba(244,114,182,0.2); --card-border-hover: rgba(244,114,182,0.9); --card-shadow-hover: rgba(244,114,182,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">🎥</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">Oneshots by NDA Sir</h3>
+                    <p class="text-sm text-gray-600 font-medium">Crisp exam-focused walkthroughs. ⚡</p>
+                </a>
+
+                <a href="phyncertsoln.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(52,211,153,0.55); --card-shadow: rgba(52,211,153,0.2); --card-border-hover: rgba(52,211,153,0.9); --card-shadow-hover: rgba(52,211,153,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">📗</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">NCERT Solutions</h3>
+                    <p class="text-sm text-gray-600 font-medium">Step-by-step answers, straight from the source. ✍️</p>
+                </a>
+
+                <a href="phyformulasheet.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(251,146,60,0.55); --card-shadow: rgba(251,146,60,0.2); --card-border-hover: rgba(251,146,60,0.9); --card-shadow-hover: rgba(251,146,60,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">📐</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">Formula Sheet</h3>
+                    <p class="text-sm text-gray-600 font-medium">Every formula, one glance away. 🧮</p>
+                </a>
+
+                <a href="phymindmaps.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(45,212,191,0.55); --card-shadow: rgba(45,212,191,0.2); --card-border-hover: rgba(45,212,191,0.9); --card-shadow-hover: rgba(45,212,191,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">🧠</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">Mindmaps</h3>
+                    <p class="text-sm text-gray-600 font-medium">Visual maps that connect the dots. 🗺️</p>
+                </a>
+
+                <a href="phymcq.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(129,140,248,0.55); --card-shadow: rgba(129,140,248,0.2); --card-border-hover: rgba(129,140,248,0.9); --card-shadow-hover: rgba(129,140,248,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">✅</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">MCQ Practice</h3>
+                    <p class="text-sm text-gray-600 font-medium">Drill it till it's second nature. 🎯</p>
+                </a>
+
+                <a href="rakshaksir.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(251,191,36,0.55); --card-shadow: rgba(251,191,36,0.2); --card-border-hover: rgba(251,191,36,0.9); --card-shadow-hover: rgba(251,191,36,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">📚</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">NCERT Study Materials — Rakshak Sir</h3>
+                    <p class="text-sm text-gray-600 font-medium">Deep-dive notes, chapter by chapter. 📖</p>
+                </a>
+
+                <a href="Saleemsir.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(251,113,133,0.55); --card-shadow: rgba(251,113,133,0.2); --card-border-hover: rgba(251,113,133,0.9); --card-shadow-hover: rgba(251,113,133,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">🔬</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">JEE Study Materials — Saleem Sir</h3>
+                    <p class="text-sm text-gray-600 font-medium">Extra depth for the toughies. 💪</p>
+                </a>
+
+                <a href="ndapyq.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(56,189,248,0.55); --card-shadow: rgba(56,189,248,0.2); --card-border-hover: rgba(56,189,248,0.9); --card-shadow-hover: rgba(56,189,248,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">📝</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">NDA PYQ (2014–2025)</h3>
+                    <p class="text-sm text-gray-600 font-medium">A decade of real questions. ⏳</p>
+                </a>
+
+                <a href="cdspyq.html" class="cute-glass p-6 flex flex-col group card-hover cursor-pointer" style="--card-border: rgba(167,139,250,0.55); --card-shadow: rgba(167,139,250,0.2); --card-border-hover: rgba(167,139,250,0.9); --card-shadow-hover: rgba(167,139,250,0.4);">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl mb-4 shadow-sm border-2 border-cutesky-100 group-hover:animate-wiggle">📄</div>
+                    <h3 class="text-lg font-cute font-bold text-gray-800 mb-1">CDS PYQ (2014–2025)</h3>
+                    <p class="text-sm text-gray-600 font-medium">Cross-exam practice, extra edge. 🛡️</p>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- ===================== BOOKS SECTION ===================== -->
+        <section>
+            <h2 class="text-2xl font-cute font-bold text-cutesky-800 mb-4 flex items-center gap-2">
+                <span class="text-3xl">📚</span> Books
+            </h2>
+
+            <div class="cute-glass p-3 mb-6 flex items-center gap-3" style="--card-border: rgba(56,189,248,0.5); --card-shadow: rgba(56,189,248,0.18);">
+                <span class="text-xl pl-2">🔍</span>
+                <input
+                    id="bookSearch"
+                    type="text"
+                    placeholder="Search books by name or publisher..."
+                    class="search-input w-full bg-transparent py-2 pr-3 text-cutesky-800 placeholder-cutesky-400 font-semibold rounded-xl"
+                    oninput="filterBooks()"
+                />
+            </div>
+
+            <div id="bookCount" class="text-sm font-bold text-cutesky-500 mb-4"></div>
+
+            <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Book cards injected by JS -->
+            </div>
+
+            <div id="noResults" class="hidden text-center py-12 cute-glass mt-4">
+                <div class="text-4xl mb-2">🙈</div>
+                <p class="font-bold text-cutesky-600">No books match that search, Puchki!</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast -->
+    <div id="toast" class="toast fixed bottom-24 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 cute-glass px-5 py-3 text-sm font-bold text-cutesky-700 z-[200] shadow-lg"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggleBtn" onclick="toggleMusic()" class="fixed bottom-6 left-6 cute-glass w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-lg z-[100] hover:scale-110 transition-transform">
+        🔇
+    </button>
+
+    <script>
+        /* ============ BOOK DATA ============
+           To add a new book in the future, just add a new object to this array:
+           { name, publisher, cover, link, password (optional) }
+        */
+        const books = [
+            { name: "Road to NDA", publisher: "SSB publication", cover: "physics_roadtonda.png", link: "https://drive.google.com/file/d/1fJzwUWthOyO_QguDk9aXwVtGugGbz63f/view?usp=drive_link" },
+            { name: "PW Shaurya Physics", publisher: "Physics Wallah", cover: "pwshauryaphysics.png", link: "https://drive.google.com/file/d/1pdLQlJiVFvmT7tok_JfPakmI0DIl1JSD/view?usp=drive_link", password: "Team_NDA" },
+            { name: "Physics Handbook for Quick Revision", publisher: "Neon Classes | Raja Sir", cover: "physicshandbook.png", link: "https://drive.google.com/file/d/10x7GgiX2Q1jFGjWu3yP5jAuPSBaNo9l5/view?usp=drive_link" },
+            { name: "Physics Digital Notes", publisher: "Online Benchers", cover: "Physicsdigitalnotes.png", link: "https://drive.google.com/file/d/10x7GgiX2Q1jFGjWu3yP5jAuPSBaNo9l5/view?usp=drive_link" },
+            { name: "Physics Pathfinder", publisher: "Arihant", cover: "physicspathfinder.png", link: "https://drive.google.com/file/d/18gX7HeobHVpjEkME5UPLIMb6PJPdGRrL/view?usp=drivesdk" },
+            { name: "Physics Formula Sheet", publisher: "None", cover: "physicssheet.png", link: "https://drive.google.com/file/d/1tYZXPare_wAohwjNW8QZtN2qyZuX-W0x/view?usp=drive_link" },
+            { name: "Physics Notes strictly based on NDA", publisher: "Shyam Sharma", cover: "physicsnotesnda.png", link: "https://drive.google.com/file/d/1h4a8DVTot0hMxfpsNXkNhTnyl6WGw1x4/view?usp=drive_link" },
+            { name: "Physics Handwritten Notes", publisher: "None", cover: "physicshand.png", link: "https://drive.google.com/file/d/1lA3ONUrfUmh8xO8BBCpVPupgdPIncLsx/view?usp=drive_link" },
+            { name: "NCERT Physics 200 Numerics", publisher: "Chandan Meity", cover: "physics2000numerics.png", link: "https://drive.google.com/file/d/1lWFlNEB7mZpVRNoBWBulTDwquwjhehFQ/view?usp=drive_link" },
+            { name: "Physics Notes", publisher: "Desire To Learn", cover: "physicsnotesdtl.png", link: "https://drive.google.com/file/d/16NOYc6qTn7FM0krdm091jsfqEbMXvQX9/view?usp=drive_link" },
+            { name: "Physics Formulasheet", publisher: "Vikrant Kirar", cover: "physicsformulavikrant.png", link: "https://drive.google.com/file/d/1pEbGbhHv7AmwENuMKuXcTv_wNK9WTod0/view?usp=drive_link" },
+            { name: "Physics for General Competitive Exam", publisher: "Paramount Reader Publication", cover: "physicsforgen.png", link: "https://drive.google.com/file/d/1Gh1kZ_TX5d1G6pUS23s4RB4egImHwEVf/view?usp=drive_link" },
+            { name: "Physics Cheat Code", publisher: "Insight Hub", cover: "physicscheat.png", link: "https://drive.google.com/file/d/1Bm0fPWxyIfLNeUyvDjeMruB1zKL3UAbz/view?usp=drive_link" },
+            { name: "Physics Chapterwise Practice Book", publisher: "Desire To Learn", cover: "physicschwise.png", link: "https://drive.google.com/file/d/119IzHI26VPbkmqvMEO2t2v4_LjlNfGG4/view?usp=drive_link" },
+            { name: "Physics 50000 MCQs", publisher: "YCT Publications | A.K. Mahajan", cover: "physics50000mcq.png", link: "https://drive.google.com/file/d/15elbY5XB5RzrbpPAxF0Rp5ZrwdU-uKbg/view?usp=drive_link" },
+            { name: "NEET Physics PYQ Class 11th", publisher: "Umesh Rajoria", cover: "neetphysics11.png", link: "https://drive.google.com/file/d/1HxxF35bMT5ci2ZbOA1Tl4lJrcH_g81GF/view?usp=drive_link" },
+            { name: "NEET Physics PYQ Class 12th", publisher: "Umesh Rajoria", cover: "neetphysics12.png", link: "https://drive.google.com/file/d/1ZpLVqUclJ4XXwG3g4XMEGmeJUog3p0iG/view?usp=drive_link" },
+            { name: "NDA Physics PYQ (2014-2025)", publisher: "Desire To Learn", cover: "ndaphysicspyqdtl.png", link: "https://drive.google.com/file/d/1NhqqA_CbolX-1O1G8qXB-YKVDaDgOQxi/view?usp=drive_link" },
+            { name: "Physics Digital Notes 1st Edition", publisher: "CDS Journey", cover: "physicsnotescdsjourney.png", link: "https://drive.google.com/file/d/1u6wi_arkh5Y4HiAimq1S3xhC_XRE49-5/view?usp=drive_link" },
+            { name: "Lucent Physics MCQ", publisher: "Lucent", cover: "lucentphysics.png", link: "https://drive.google.com/file/d/1g9pKa0KbbVSJaC8ZqKKnr0-ehBmhm94i/view?usp=drive_link" },
+            { name: "Physics Class Notes 2022", publisher: "Khan Sir", cover: "khansirphysics.png", link: "https://drive.google.com/file/d/1NusoajmaCgcyldozwtP9BNw_4uphrfH0/view?usp=drive_link" },
+            { name: "CDS Physics Question Bank", publisher: "PDF Basket", cover: "cdsphyqb.png", link: "https://drive.google.com/file/d/1qEnJQgnNXkzGKqLeO4CrQU8lW58tbI9n/view?usp=drive_link" },
+            { name: "NDA Physics Exam Paper PYQ", publisher: "None", cover: "physicsexampyqnda.png", link: "https://drive.google.com/file/d/1IjogfdHxmcED-a6SvzaJGqFLHA-fUME5/view?usp=drive_link" },
+            { name: "Physics Last Minute Revision (LMR) 2nd Edition", publisher: "Insight SSB", cover: "physicslmr2.png", link: "https://drive.google.com/file/d/1BUvbuSD2rvORq0sOePKzdEthGCwrGBQm/view?usp=drive_link" },
+            { name: "Physics Last Minute Revision (LMR) 3rd Edition", publisher: "Insight SSB", cover: "physicslmr4.png", link: "https://drive.google.com/file/d/1-K1mo3SvbW8-yNfx27o6hwg8n8MZ1mr6/view?usp=drive_link" },
+            { name: "CDS Physics Notes", publisher: "CDS Journey", cover: "cdsphysicsnotesjourney.png", link: "https://drive.google.com/file/d/1azfYXp03h4Xs3sBA42A4OD5VrkG7AiyB/view?usp=drive_link" },
+            { name: "Physics 100 MCQs Solved for NDA and CDS", publisher: "None", cover: "ssbphysicsmcq.png", link: "https://drive.google.com/file/d/1xKmP33VFQOOQe1wvh4LFeeYuoGCVzxqZ/view?usp=drive_link" },
+        ];
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        const borderPalette = [
+            { border: 'rgba(56,189,248,0.55)',  hover: 'rgba(56,189,248,0.9)',  shadow: 'rgba(56,189,248,0.2)',  shadowHover: 'rgba(56,189,248,0.4)' },
+            { border: 'rgba(167,139,250,0.55)', hover: 'rgba(167,139,250,0.9)', shadow: 'rgba(167,139,250,0.2)', shadowHover: 'rgba(167,139,250,0.4)' },
+            { border: 'rgba(244,114,182,0.55)', hover: 'rgba(244,114,182,0.9)', shadow: 'rgba(244,114,182,0.2)', shadowHover: 'rgba(244,114,182,0.4)' },
+            { border: 'rgba(52,211,153,0.55)',  hover: 'rgba(52,211,153,0.9)',  shadow: 'rgba(52,211,153,0.2)',  shadowHover: 'rgba(52,211,153,0.4)' },
+            { border: 'rgba(251,146,60,0.55)',  hover: 'rgba(251,146,60,0.9)',  shadow: 'rgba(251,146,60,0.2)',  shadowHover: 'rgba(251,146,60,0.4)' },
+            { border: 'rgba(45,212,191,0.55)',  hover: 'rgba(45,212,191,0.9)',  shadow: 'rgba(45,212,191,0.2)',  shadowHover: 'rgba(45,212,191,0.4)' },
+            { border: 'rgba(129,140,248,0.55)', hover: 'rgba(129,140,248,0.9)', shadow: 'rgba(129,140,248,0.2)', shadowHover: 'rgba(129,140,248,0.4)' },
+            { border: 'rgba(251,191,36,0.55)',  hover: 'rgba(251,191,36,0.9)',  shadow: 'rgba(251,191,36,0.2)',  shadowHover: 'rgba(251,191,36,0.4)' },
+            { border: 'rgba(251,113,133,0.55)', hover: 'rgba(251,113,133,0.9)', shadow: 'rgba(251,113,133,0.2)', shadowHover: 'rgba(251,113,133,0.4)' },
+        ];
+
+        function renderBooks(list) {
+            const grid = document.getElementById('booksGrid');
+            const noResults = document.getElementById('noResults');
+            const bookCount = document.getElementById('bookCount');
+
+            bookCount.textContent = `${list.length} book${list.length !== 1 ? 's' : ''} in the vault`;
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+            noResults.classList.add('hidden');
+
+            grid.innerHTML = list.map((book, i) => {
+                const c = borderPalette[i % borderPalette.length];
+                return `
+                <div class="cute-glass p-4 flex flex-col group card-hover" style="--card-border: ${c.border}; --card-shadow: ${c.shadow}; --card-border-hover: ${c.hover}; --card-shadow-hover: ${c.shadowHover};">
+                    <div class="w-full h-48 rounded-xl overflow-hidden mb-4 book-cover-fallback flex items-center justify-center border-2 border-white shadow-sm">
+                        <img src="${escapeHtml(book.cover)}" alt="${escapeHtml(book.name)} cover"
+                             class="w-full h-full object-cover"
+                             onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'text-5xl\\'>📘</span>';" />
+                    </div>
+                    <h3 class="text-base font-cute font-bold text-gray-800 mb-1 leading-snug">${escapeHtml(book.name)}</h3>
+                    <p class="text-xs font-bold text-cutesky-500 uppercase tracking-wide mb-3">${escapeHtml(book.publisher || 'Publisher unknown')}</p>
+                    ${book.password ? `
+                    <div class="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg px-3 py-1.5 mb-3 flex items-center gap-1.5 w-max">
+                        🔒 Password: <span class="font-mono">${escapeHtml(book.password)}</span>
+                    </div>` : ''}
+                    <a href="${escapeHtml(book.link)}" target="_blank" rel="noopener noreferrer"
+                       class="mt-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cutesky-400 to-cutesky-500 text-white font-bold text-sm py-2.5 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-sm">
+                        📂 Open in Drive
+                    </a>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function filterBooks() {
+            const q = document.getElementById('bookSearch').value.trim().toLowerCase();
+            const filtered = books.filter(b =>
+                b.name.toLowerCase().includes(q) ||
+                (b.publisher || '').toLowerCase().includes(q)
+            );
+            renderBooks(filtered);
+        }
+
+        renderBooks(books);
+
+        /* ============ MUSIC SYNC (same mechanism as other pages) ============ */
+        document.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('musicToggleBtn');
+
+            const savedTime = localStorage.getItem('puchki_music_time') || 0;
+            const isPlaying = localStorage.getItem('puchki_music_playing') === 'true';
+
+            audio.currentTime = parseFloat(savedTime);
+
+            if (isPlaying) {
+                audio.play().then(() => {
+                    musicBtn.innerHTML = '🔊';
+                }).catch(e => {
+                    console.log("Autoplay blocked", e);
+                    musicBtn.innerHTML = '🔇';
+                    localStorage.setItem('puchki_music_playing', 'false');
+                });
+            }
+
+            audio.addEventListener('timeupdate', () => {
+                localStorage.setItem('puchki_music_time', audio.currentTime);
+            });
+
+            window.toggleMusic = function() {
+                if (audio.paused) {
+                    audio.play();
+                    localStorage.setItem('puchki_music_playing', 'true');
+                    musicBtn.innerHTML = '🔊';
+                } else {
+                    audio.pause();
+                    localStorage.setItem('puchki_music_playing', 'false');
+                    musicBtn.innerHTML = '🔇';
+                }
+            };
+        });
+    </script>
+</body>
+</html>
